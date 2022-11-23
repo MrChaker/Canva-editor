@@ -1,12 +1,38 @@
 import React from "react";
+import CanvasBoard from "./components/CanvasBoard/CanvasBoard";
+import ToolBar from "./components/toolBar/ToolBar";
+import ToolBarItem from "./components/toolBar/ToolBarItem";
+import UploadModel from "./components/UploadModel/UploadModel";
+import useToolStore from "./store/ToolStore";
 
 const CanvaEditor = () => {
+    const { imageUploadModel, toggleImgModel, drawElement } = useToolStore(
+        (state) => state
+    );
     return (
-        <div>
-            <button className="p-4 rounded-md bg-blue-400">
-                Edit the Canva
-            </button>
-        </div>
+        <>
+            <ToolBar>
+                <ToolBarItem label="text" icon="Aa" onClick={() => {}} />
+                <ToolBarItem
+                    testId="image tool"
+                    label="image"
+                    icon="🎞️"
+                    onClick={() => {
+                        toggleImgModel();
+                    }}
+                />
+                <ToolBarItem label="circle" icon="🔵" onClick={() => {}} />
+                <ToolBarItem
+                    label="square"
+                    icon="🟩"
+                    onClick={() => {
+                        drawElement({ type: "Rect" });
+                    }}
+                />
+            </ToolBar>
+            {imageUploadModel && <UploadModel />}
+            <CanvasBoard />
+        </>
     );
 };
 
