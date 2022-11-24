@@ -65,7 +65,7 @@ export default function elementSelector(
     });
 
     // clicks should select/deselect shapes
-    stage.on("click tap mousedown", function (e) {
+    stage.on("click tap dragstart", function (e) {
         // if we are selecting with rect, do nothing
         if (selectionRectangle.visible()) {
             return;
