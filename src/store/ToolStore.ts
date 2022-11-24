@@ -15,6 +15,8 @@ const useToolStore = create<ToolsActionType>((set) => ({
             const communProps = {
                 x: 50,
                 y: 50,
+                draggable: true,
+                name: "element",
             };
             const canvaStore = useCanvaStore.getState();
             switch (params.type) {

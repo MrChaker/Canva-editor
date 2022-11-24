@@ -1,5 +1,3 @@
-import { CanvaElementType } from "./state";
-
 export interface ToolsActionType {
     imageUploadModel: boolean;
     toggleImgModel: () => void;

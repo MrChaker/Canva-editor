@@ -21,22 +21,9 @@ export type CanvaElementType = CanvaElement & CanvaImageElement;
 
 export interface CanvaElement {
     type: "Image" | "Rect" | "Circle";
-    props: CanvaElementProps;
+    props: Konva.NodeConfig;
 }
 
 export interface CanvaImageElement extends CanvaElement {
     src?: string;
 }
-
-export type CanvaElementProps = {
-    x?: number;
-    y?: number;
-    width?: number;
-    height?: number;
-    fill?: string;
-    id?: string;
-    draggable?: boolean;
-    key?: number | string;
-    onClick?: () => void;
-    image?: HTMLImageElement;
-};

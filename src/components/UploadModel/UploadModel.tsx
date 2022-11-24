@@ -1,17 +1,12 @@
 import React, { useRef } from "react";
-import useCanvaStore from "../../store/CanvaStore";
-import { Image } from "react-konva";
 import useToolStore from "../../store/ToolStore";
-import Konva from "konva";
-import { CanvaImageElement } from "src/types/state";
 
 type PropsType = {
     style?: string;
 };
 const UploadModel = (props: PropsType) => {
     const fileInput = useRef<HTMLInputElement>(null!);
-    const addElement = useCanvaStore((state) => state.addElement);
-    const { toggleImgModel, drawElement } = useToolStore((state) => state);
+    const { drawElement } = useToolStore((state) => state);
 
     const addImage = () => {
         if (fileInput.current.files?.item(0))

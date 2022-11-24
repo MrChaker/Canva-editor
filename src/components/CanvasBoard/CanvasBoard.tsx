@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import useCanvaStore from "../../store/CanvaStore";
-import { Stage, Layer } from "react-konva";
+import { Stage, Layer, Transformer } from "react-konva";
 import Konva from "konva";
-import { CanvaElementProps } from "../../types/state";
+import elementSelector from "../../utils/elementSelector";
 
 const CanvasBoard = () => {
     const {
@@ -14,9 +14,12 @@ const CanvasBoard = () => {
         selectedElements,
     } = useCanvaStore((state) => state);
 
-    const shapeRef = React.useRef();
-    const trRef = React.useRef();
-
+    const stage = useRef<Konva.Stage>(null!);
+    const layer = useRef<Konva.Layer>(null!);
+    const transformer = useRef<Konva.Transformer>(null!);
+    useEffect(() => {
+        elementSelector(stage.current, layer.current, transformer.current);
+    }, []);
     /* React.useEffect(() => {
         if (isSelected) {
         // we need to attach transformer manually
@@ -39,17 +42,17 @@ const CanvasBoard = () => {
             data-testid="canva board"
             className="h-screen bg-yellow-50 w-full pl-20 flex items-center">
             <Stage
+                ref={stage}
                 width={width * zoom}
                 height={height * zoom}
                 onMouseDown={checkDeselect}
                 onTouchStart={checkDeselect}
                 className="bg-white ml-40">
-                <Layer>
+                <Layer ref={layer}>
                     {elements.map((el, i) => {
-                        const communProps: CanvaElementProps = {
+                        const communProps: Konva.NodeConfig = {
                             ...el.props,
                             key: i,
-                            draggable: true,
                         };
                         switch (el.type) {
                             case "Image":
@@ -66,6 +69,7 @@ const CanvasBoard = () => {
                                 );
                         }
                     })}
+                    <Transformer ref={transformer} />
                 </Layer>
             </Stage>
         </div>
