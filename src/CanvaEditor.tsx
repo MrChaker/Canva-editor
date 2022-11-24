@@ -21,7 +21,13 @@ const CanvaEditor = () => {
                         toggleImgModel();
                     }}
                 />
-                <ToolBarItem label="circle" icon="🔵" onClick={() => {}} />
+                <ToolBarItem
+                    label="circle"
+                    icon="🔵"
+                    onClick={() => {
+                        drawElement({ type: "Circle" });
+                    }}
+                />
                 <ToolBarItem
                     label="square"
                     icon="🟩"
