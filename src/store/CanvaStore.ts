@@ -1,4 +1,4 @@
-import { CanvaElement, CanvaImageElement, CanvaState } from "../types/state";
+import { CanvaElement, CanvaState } from "../types/state";
 import create from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -6,7 +6,7 @@ const useCanvaStore = create<CanvaState>()(
     persist((set) => ({
         width: 1920,
         height: 1200,
-        zoom: 0.3,
+        zoom: 0.4,
         elements: [],
         selectedElements: [],
 

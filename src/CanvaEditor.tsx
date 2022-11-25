@@ -1,4 +1,5 @@
 import React from "react";
+import AttributesBar from "./components/AttributesBar/AttributesBar";
 import CanvasBoard from "./components/CanvasBoard/CanvasBoard";
 import ToolBar from "./components/toolBar/ToolBar";
 import ToolBarItem from "./components/toolBar/ToolBarItem";
@@ -38,6 +39,7 @@ const CanvaEditor = () => {
             </ToolBar>
             {imageUploadModel && <UploadModel />}
             <CanvasBoard />
+            <AttributesBar />
         </>
     );
 };

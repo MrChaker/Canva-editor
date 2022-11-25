@@ -27,12 +27,12 @@ const CanvasBoard = () => {
     return (
         <div
             data-testid="canva board"
-            className="h-screen bg-yellow-50 w-full pl-20 flex items-center">
+            className="h-screen bg-yellow-50 w-full flex items-center">
             <Stage
                 ref={stage}
                 width={width * zoom}
                 height={height * zoom}
-                className="bg-white ml-40">
+                className="bg-white ml-32">
                 <Layer ref={layer}>
                     {elements.map((el, i) => createReactCanvaElement(el, i))}
                     <Transformer ref={transformer} />
