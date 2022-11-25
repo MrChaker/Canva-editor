@@ -4,7 +4,10 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 const deps = require("./package.json").dependencies;
 module.exports = (_, argv) => ({
     output: {
-        publicPath: "http://localhost:8082/",
+        publicPath:
+            argv.mode == "development"
+                ? "http://localhost:8082/"
+                : "http://cms-canva-editor.s3-website-us-east-1.amazonaws.com/",
     },
 
     resolve: {

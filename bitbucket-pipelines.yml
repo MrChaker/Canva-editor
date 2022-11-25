@@ -8,8 +8,6 @@ pipelines:
           caches:
             - node
           script:
-            - rm -rf package-lock.json
-            - rm -rf node_modules
             - npm install
       - step:
           name: Build
