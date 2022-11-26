@@ -14,6 +14,7 @@ const CanvasBoard = () => {
         height,
         zoom,
         elements,
+        background,
         setSelectedElements,
         selectedElements,
     } = useCanvaStore((state) => state);
@@ -36,7 +37,8 @@ const CanvasBoard = () => {
                 ref={stage}
                 width={width * zoom}
                 height={height * zoom}
-                className="bg-white ml-32">
+                className="ml-32"
+                style={{ backgroundColor: background }}>
                 <Layer ref={layer}>
                     {elements.map((el, i) => createReactCanvaElement(el, i))}
                     <Transformer ref={transformer} />

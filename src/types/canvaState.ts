@@ -6,7 +6,7 @@ export interface CanvaState {
     zoom: number;
     elements: CanvaElementType[];
     selectedElements: CanvaElementType[];
-
+    background: string;
     setElements: (elements: CanvaElementType[]) => void;
     addElement: (elements: CanvaElementType) => void;
 
@@ -14,6 +14,7 @@ export interface CanvaState {
 
     setWidth?: (w: number) => void;
     setHeigth?: (h: number) => void;
+    setBG: (color: string) => void;
 }
 
 export type CanvaElementType = CanvaElement & CanvaImageElement;

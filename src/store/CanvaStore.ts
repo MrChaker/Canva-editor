@@ -9,9 +9,11 @@ const useCanvaStore = create<CanvaState>()(
         zoom: 0.4,
         elements: [],
         selectedElements: [],
+        background: "white",
 
         setWidth: (newWidth: number) => set(() => ({ width: newWidth })),
         setHeight: (newHeight: number) => set(() => ({ width: newHeight })),
+        setBG: (color: string) => set(() => ({ background: color })),
 
         setElements: (elements: CanvaElement[]) => set(() => ({ elements })),
         addElement: (element: CanvaElement) =>
