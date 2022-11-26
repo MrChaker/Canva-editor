@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useCanvaStore from "../../store/CanvaStore";
 import { Stage, Layer, Transformer } from "react-konva";
 import elementSelector from "../../utils/elementSelector";
@@ -6,6 +6,7 @@ import createReactCanvaElement from "../../utils/createReactCanvaElement";
 import { Stage as StageType } from "konva/lib/Stage";
 import { Layer as LayerType } from "konva/lib/Layer";
 import { Transformer as TransformerType } from "konva/lib/shapes/Transformer";
+import DragAndDropInput from "../DragAndDropInput/DragAndDropInput";
 
 const CanvasBoard = () => {
     const {
@@ -24,8 +25,11 @@ const CanvasBoard = () => {
         elementSelector(stage.current, layer.current, transformer.current);
     }, []);
 
+    const [dragging, setDragging] = useState(false);
+
     return (
         <div
+            onDragOver={() => setDragging(true)}
             data-testid="canva board"
             className="h-screen bg-yellow-50 w-full flex items-center">
             <Stage
@@ -38,6 +42,7 @@ const CanvasBoard = () => {
                     <Transformer ref={transformer} />
                 </Layer>
             </Stage>
+            <DragAndDropInput visible={dragging} setVisible={setDragging} />
         </div>
     );
 };

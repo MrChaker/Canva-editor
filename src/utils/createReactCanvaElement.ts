@@ -1,6 +1,6 @@
 import { NodeConfig } from "konva/lib/Node";
 import { createElement, ReactNode } from "react";
-import { CanvaElementType } from "src/types/state";
+import { CanvaElementType } from "../types/canvaState";
 
 const createReactCanvaElement = (
     el: CanvaElementType,
