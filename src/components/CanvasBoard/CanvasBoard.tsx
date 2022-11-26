@@ -7,7 +7,6 @@ import { Stage as StageType } from "konva/lib/Stage";
 import { Layer as LayerType } from "konva/lib/Layer";
 import { Transformer as TransformerType } from "konva/lib/shapes/Transformer";
 import DragAndDropInput from "../DragAndDropInput/DragAndDropInput";
-import useToolStore from "../../store/ToolStore";
 
 const CanvasBoard = () => {
     const {

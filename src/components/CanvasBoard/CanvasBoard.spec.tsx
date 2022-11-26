@@ -1,20 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import React from "react";
+import CanvasBoard from "./CanvasBoard";
 
 describe("toolBar test", () => {
     beforeEach(() => {
-        /* render(
-            <ToolBar>
-                <ToolBarItem label="text" icon="Aa" onClick={selectTool} />
-                <ToolBarItem
-                    testId="square"
-                    label="square"
-                    icon="🟩"
-                    onClick={selectTool}
-                />
-            </ToolBar>
-        ); */
+        render(<CanvasBoard />);
     });
 
     it("should render", () => {

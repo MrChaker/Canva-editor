@@ -1,4 +1,4 @@
-import { CanvaElement, CanvaImageElement, CanvaState } from "../types/state";
+import { CanvaElement, CanvaState } from "../types/canvaState";
 import create from "zustand";
 import { persist } from "zustand/middleware";
 
