@@ -1,3 +1,5 @@
+import { ElementType } from "./commun";
+
 export interface ToolsActionType {
     imageUploadModel: boolean;
     toggleImgModel: () => void;
@@ -5,9 +7,14 @@ export interface ToolsActionType {
 }
 
 export type DrawParams = {
-    type: "Image" | "Rect" | "Circle";
-} & ImageDrawParams;
+    type: ElementType;
+} & ImageDrawParams &
+    TextDrawParams;
 
 type ImageDrawParams = {
     file?: File;
+};
+
+type TextDrawParams = {
+    text?: string;
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import useCanvaStore from "../../store/CanvaStore";
-import { Stage, Layer, Transformer } from "react-konva";
+import { Stage, Layer, Transformer, Text } from "react-konva";
 import elementSelector from "../../utils/elementSelector";
 import createReactCanvaElement from "../../utils/createReactCanvaElement";
 import { Stage as StageType } from "konva/lib/Stage";
@@ -37,10 +37,12 @@ const CanvasBoard = () => {
                 ref={stage}
                 width={width * zoom}
                 height={height * zoom}
-                className="ml-32"
+                className="canva ml-32"
                 style={{ backgroundColor: background }}>
                 <Layer ref={layer}>
-                    {elements.map((el, i) => createReactCanvaElement(el, i))}
+                    {elements.map((el, i) =>
+                        createReactCanvaElement(el, stage.current, i)
+                    )}
                     <Transformer ref={transformer} />
                 </Layer>
             </Stage>

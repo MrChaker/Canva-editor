@@ -13,7 +13,13 @@ const CanvaEditor = () => {
     return (
         <>
             <ToolBar>
-                <ToolBarItem label="text" icon="Aa" onClick={() => {}} />
+                <ToolBarItem
+                    label="text"
+                    icon="Aa"
+                    onClick={() => {
+                        drawElement({ type: "Text", text: "hello" });
+                    }}
+                />
                 <ToolBarItem
                     testId="image tool"
                     label="image"

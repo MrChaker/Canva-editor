@@ -1,4 +1,5 @@
 import { NodeConfig } from "konva/lib/Node";
+import { ElementType } from "./commun";
 
 export interface CanvaState {
     width: number;
@@ -20,7 +21,7 @@ export interface CanvaState {
 export type CanvaElementType = CanvaElement & CanvaImageElement;
 
 export interface CanvaElement {
-    type: "Image" | "Rect" | "Circle";
+    type: ElementType;
     props: NodeConfig;
 }
 

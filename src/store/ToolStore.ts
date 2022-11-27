@@ -45,8 +45,17 @@ const useToolStore = create<ToolsActionType>((set) => ({
                         };
                     });
                     break;
+                case "Text":
+                    canvaStore.addElement({
+                        type: params.type,
+                        props: {
+                            ...communProps,
+                            text: params.text,
+                        },
+                    });
+                    break;
                 default:
-                    useCanvaStore.getState().addElement({
+                    canvaStore.addElement({
                         type: params.type,
                         props: {
                             ...communProps,
