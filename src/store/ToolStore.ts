@@ -1,8 +1,6 @@
 import { DrawParams, ToolsActionType } from "../types/toolsActions";
 import create from "zustand";
-import readFile from "../utils/readFile";
-import useCanvaStore from "./CanvaStore";
-import resizeImageBeforeDrawing from "../utils/resizeImageBeforeDrawing";
+import ElementFactory from "../ElementFactory/ElementFactory";
 
 const useToolStore = create<ToolsActionType>((set) => ({
     imageUploadModel: false,
@@ -10,64 +8,10 @@ const useToolStore = create<ToolsActionType>((set) => ({
         set((state) => ({
             imageUploadModel: !state.imageUploadModel,
         })),
-    drawElement: (params: DrawParams) =>
-        set((state) => {
-            const communProps = {
-                x: 50,
-                y: 50,
-                draggable: true,
-                name: "element",
-            };
-            const canvaStore = useCanvaStore.getState();
-            switch (params.type) {
-                case "Image":
-                    const newImg = document.createElement("img");
-                    readFile(params.file!, (res) => {
-                        newImg.src = res;
-                        newImg.onload = () => {
-                            state.toggleImgModel();
-                            resizeImageBeforeDrawing(
-                                newImg,
-                                canvaStore.width,
-                                canvaStore.height,
-                                canvaStore.zoom
-                            );
-                            canvaStore.addElement({
-                                type: params.type,
-                                props: {
-                                    image: newImg,
-                                    ...communProps,
-                                    width: newImg.width,
-                                    height: newImg.height,
-                                },
-                                src: res,
-                            });
-                        };
-                    });
-                    break;
-                case "Text":
-                    canvaStore.addElement({
-                        type: params.type,
-                        props: {
-                            ...communProps,
-                            text: params.text,
-                        },
-                    });
-                    break;
-                default:
-                    canvaStore.addElement({
-                        type: params.type,
-                        props: {
-                            ...communProps,
-                            fill: "red",
-                            width: 50,
-                            height: 50,
-                        },
-                    });
-                    break;
-            }
-            return {};
-        }),
+    drawElement: (params: DrawParams) => {
+        const ef = new ElementFactory(params);
+        return ef.element.drawElement();
+    },
 }));
 
 export default useToolStore;
