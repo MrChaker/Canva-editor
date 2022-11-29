@@ -1,9 +1,12 @@
 import React, { useEffect, useRef } from "react";
+import useAttributeStore from "../../store/AttributeBarStore";
 import useCanvaStore from "../../store/CanvaStore";
 
 const CanvaBoardAttributes = () => {
     const bgColor = useRef<HTMLInputElement>(null!);
     const { setBG, background } = useCanvaStore((state) => state);
+    const { stage } = useAttributeStore((state) => state);
+
     /* useEffect(() => {
         console.log(bgColor.current.value);
     }, []); */
@@ -19,9 +22,11 @@ const CanvaBoardAttributes = () => {
                     defaultValue={background}
                 />
             </div>
-            <button className="border border-black p-2 px-4 rounded-lg">
-                Export canva
-            </button>
+            <a href={stage?.toDataURL()} download>
+                <button className="border border-black p-2 px-4 rounded-lg">
+                    Export canva
+                </button>
+            </a>
         </div>
     );
 };

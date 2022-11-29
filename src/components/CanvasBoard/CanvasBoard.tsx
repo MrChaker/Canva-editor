@@ -7,6 +7,7 @@ import { Stage as StageType } from "konva/lib/Stage";
 import { Layer as LayerType } from "konva/lib/Layer";
 import { Transformer as TransformerType } from "konva/lib/shapes/Transformer";
 import DragAndDropInput from "../DragAndDropInput/DragAndDropInput";
+import useAttributeStore from "../../store/AttributeBarStore";
 
 const CanvasBoard = () => {
     const {
@@ -20,11 +21,13 @@ const CanvasBoard = () => {
         removeElement,
         duplicateElement,
     } = useCanvaStore((state) => state);
+    const setStage = useAttributeStore((state) => state.setStage);
 
     const stage = useRef<StageType>(null!);
     const layer = useRef<LayerType>(null!);
     const transformer = useRef<TransformerType>(null!);
     useEffect(() => {
+        setStage(stage.current);
         setSelectedElements([]);
         elementSelector(
             stage.current,
@@ -54,7 +57,6 @@ const CanvasBoard = () => {
             });
         }
     };
-
     return (
         <div
             onDragOver={() => setDragging(true)}
