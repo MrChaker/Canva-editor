@@ -1,11 +1,19 @@
-import Konva from "konva";
+import { Layer } from "konva/lib/Layer";
+import { Node, NodeConfig } from "konva/lib/Node";
+import { Rect } from "konva/lib/shapes/Rect";
+import { Transformer } from "konva/lib/shapes/Transformer";
+import { Stage } from "konva/lib/Stage";
+import { Util } from "konva/lib/Util";
+import { CanvaElementType } from "src/types/canvaState";
+import { ElementType } from "../types/commun";
 
 export default function elementSelector(
-    stage: Konva.Stage,
-    layer: Konva.Layer,
-    tr: Konva.Transformer
+    stage: Stage,
+    layer: Layer,
+    tr: Transformer,
+    setSelectedElements: (elements: CanvaElementType[]) => void
 ) {
-    var selectionRectangle = new Konva.Rect({
+    var selectionRectangle = new Rect({
         fill: "rgba(0,0,255,0.5)",
         visible: false,
     });
@@ -59,9 +67,9 @@ export default function elementSelector(
         var shapes = stage.find(".element");
         var box = selectionRectangle.getClientRect();
         var selected = shapes.filter((shape) =>
-            Konva.Util.haveIntersection(box, shape.getClientRect())
+            Util.haveIntersection(box, shape.getClientRect())
         );
-        tr.nodes(selected);
+        select(tr, selected, setSelectedElements);
     });
 
     // clicks should select/deselect shapes
@@ -77,11 +85,10 @@ export default function elementSelector(
             return;
         }
 
-        // do nothing if clicked NOT on our rectangles
+        /*   // do nothing if clicked NOT on our rectangles
         if (!e.target.hasName("element")) {
-            console.log("not cki");
             return;
-        }
+        } */
 
         // do we pressed shift or ctrl?
         const metaPressed = e.evt.shiftKey || e.evt.ctrlKey || e.evt.metaKey;
@@ -90,18 +97,34 @@ export default function elementSelector(
         if (!metaPressed && !isSelected) {
             // if no key pressed and the node is not selected
             // select just one
-            tr.nodes([e.target]);
+            select(tr, [e.target], setSelectedElements);
         } else if (metaPressed && isSelected) {
             // if we pressed keys and node was selected
             // we need to remove it from selection:
             const nodes = tr.nodes().slice(); // use slice to have new copy of array
             // remove node from array
             nodes.splice(nodes.indexOf(e.target), 1);
-            tr.nodes(nodes);
+            select(tr, nodes, setSelectedElements);
         } else if (metaPressed && !isSelected) {
             // add the node into selection
             const nodes = tr.nodes().concat([e.target]);
-            tr.nodes(nodes);
+            select(tr, nodes, setSelectedElements);
         }
     });
 }
+
+const select = (
+    tr: Transformer,
+    nodes: Node<NodeConfig>[],
+    setter: (elements: CanvaElementType[]) => void
+) => {
+    tr.nodes(nodes);
+    setter(
+        nodes.map((node) => {
+            return {
+                type: node.className as ElementType,
+                props: node.attrs,
+            };
+        })
+    );
+};

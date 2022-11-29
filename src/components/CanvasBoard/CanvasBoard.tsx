@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import useCanvaStore from "../../store/CanvaStore";
-import { Stage, Layer, Transformer, Text } from "react-konva";
+import { Stage, Layer, Transformer } from "react-konva";
 import elementSelector from "../../utils/elementSelector";
 import createReactCanvaElement from "../../utils/createReactCanvaElement";
 import { Stage as StageType } from "konva/lib/Stage";
@@ -17,16 +17,43 @@ const CanvasBoard = () => {
         background,
         setSelectedElements,
         selectedElements,
+        removeElement,
+        duplicateElement,
     } = useCanvaStore((state) => state);
 
     const stage = useRef<StageType>(null!);
     const layer = useRef<LayerType>(null!);
     const transformer = useRef<TransformerType>(null!);
     useEffect(() => {
-        elementSelector(stage.current, layer.current, transformer.current);
+        setSelectedElements([]);
+        elementSelector(
+            stage.current,
+            layer.current,
+            transformer.current,
+            setSelectedElements
+        );
     }, []);
 
     const [dragging, setDragging] = useState(false);
+
+    window.onkeyup = (e) => {
+        if (e.key == "Delete") {
+            selectedElements.forEach((se) => {
+                removeElement(se.props.id || "");
+                transformer.current.nodes([]);
+            });
+        }
+    };
+
+    window.onkeydown = (e) => {
+        if ((e.key == "D" || e.key == "d") && e.ctrlKey) {
+            e.preventDefault();
+            selectedElements.forEach((se) => {
+                duplicateElement(se.props.id || "");
+                /*  transformer.current.nodes([]); */
+            });
+        }
+    };
 
     return (
         <div
@@ -40,9 +67,7 @@ const CanvasBoard = () => {
                 className="canva ml-32"
                 style={{ backgroundColor: background }}>
                 <Layer ref={layer}>
-                    {elements.map((el, i) =>
-                        createReactCanvaElement(el, stage.current, i)
-                    )}
+                    {elements.map((el, i) => createReactCanvaElement(el, i))}
                     <Transformer ref={transformer} />
                 </Layer>
             </Stage>

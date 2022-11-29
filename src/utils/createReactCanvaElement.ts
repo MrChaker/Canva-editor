@@ -1,17 +1,16 @@
 import { NodeConfig } from "konva/lib/Node";
 import { Text } from "konva/lib/shapes/Text";
-import { Stage } from "konva/lib/Stage";
 import { createElement, ReactNode } from "react";
 import { CanvaElementType } from "../types/canvaState";
 
 const createReactCanvaElement = (
     el: CanvaElementType,
-    stage: Stage,
     index: number
 ): ReactNode => {
     const communProps: NodeConfig = {
         ...el.props,
         key: index,
+        id: el.props.id,
     };
     switch (el.type) {
         case "Image":
