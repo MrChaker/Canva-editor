@@ -8,8 +8,11 @@ export interface CanvaState {
     elements: CanvaElementType[];
     selectedElements: CanvaElementType[];
     background: string;
+
+    getElement: (element: string) => CanvaElementType | null;
     setElements: (elements: CanvaElementType[]) => void;
     addElement: (elements: CanvaElementType) => void;
+    updateElement: (elementId: string, newProps: NodeConfig) => void;
     removeElement: (elementId: string) => void;
     duplicateElement: (elementId: string) => void;
 

@@ -1,7 +1,12 @@
-import { CanvaElement, CanvaState } from "../types/canvaState";
+import {
+    CanvaElement,
+    CanvaElementType,
+    CanvaState,
+} from "../types/canvaState";
 import create from "zustand";
 import { persist } from "zustand/middleware";
 import { v4 } from "uuid";
+import { NodeConfig } from "konva/lib/Node";
 
 const useCanvaStore = create<CanvaState>()(
     persist((set) => ({
@@ -16,12 +21,36 @@ const useCanvaStore = create<CanvaState>()(
         setHeight: (newHeight: number) => set(() => ({ width: newHeight })),
         setBG: (color: string) => set(() => ({ background: color })),
 
+        getElement: (elementId: string) => {
+            let res: CanvaElementType | null = null;
+            set((state) => {
+                res =
+                    state.elements.find((el) => el.props.id == elementId) ||
+                    null;
+                return {};
+            });
+            return res;
+        },
+
         setElements: (elements: CanvaElement[]) => set(() => ({ elements })),
         addElement: (element: CanvaElement) =>
             set((state) => {
                 state.elements.push(element);
                 console.log(state.elements);
                 return { elements: state.elements };
+            }),
+        updateElement: (elementId: string, newProps: NodeConfig) =>
+            set((state) => {
+                const el = state.elements.find(
+                    (el) => el.props.id === elementId
+                );
+                if (el) {
+                    el.props = {
+                        ...el.props,
+                        ...newProps,
+                    };
+                }
+                return {};
             }),
         removeElement: (elementId: string) =>
             set((state) => {

@@ -1,6 +1,7 @@
 import { NodeConfig } from "konva/lib/Node";
 import { Text } from "konva/lib/shapes/Text";
 import { createElement, ReactNode } from "react";
+import useCanvaStore from "../store/CanvaStore";
 import { CanvaElementType } from "../types/canvaState";
 
 const createReactCanvaElement = (
@@ -11,6 +12,13 @@ const createReactCanvaElement = (
         ...el.props,
         key: index,
         id: el.props.id,
+        onDragEnd: (e: any) => {
+            if (el.props.id)
+                useCanvaStore.getState().updateElement(el.props.id, {
+                    x: e.target.attrs.x,
+                    y: e.target.attrs.y,
+                });
+        },
     };
     switch (el.type) {
         case "Image":

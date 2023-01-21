@@ -1,6 +1,7 @@
 import React from "react";
 import useCanvaStore from "../../store/CanvaStore";
 import CanvaBoardAttributes from "./CanvaBoardAttributes";
+import ElementAttributes from "./ElementAttributes";
 
 type AttBarProps = {};
 
@@ -12,10 +13,8 @@ const AttributesBar = (props: AttBarProps) => {
             data-testid="attBar">
             {selectedElements.length == 0 ? (
                 <CanvaBoardAttributes />
-            ) : selectedElements.length == 1 ? (
-                <></>
             ) : (
-                <></>
+                <ElementAttributes element={selectedElements} />
             )}
         </div>
     );

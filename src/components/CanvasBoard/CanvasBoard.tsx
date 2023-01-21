@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import useCanvaStore from "../../store/CanvaStore";
-import { Stage, Layer, Transformer } from "react-konva";
+import { Stage, Layer, Transformer, Line } from "react-konva";
 import elementSelector from "../../utils/elementSelector";
 import createReactCanvaElement from "../../utils/createReactCanvaElement";
 import { Stage as StageType } from "konva/lib/Stage";
@@ -57,6 +57,7 @@ const CanvasBoard = () => {
             });
         }
     };
+
     return (
         <div
             onDragOver={() => setDragging(true)}

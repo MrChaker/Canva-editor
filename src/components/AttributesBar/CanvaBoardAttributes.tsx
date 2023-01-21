@@ -7,9 +7,6 @@ const CanvaBoardAttributes = () => {
     const { setBG, background } = useCanvaStore((state) => state);
     const { stage } = useAttributeStore((state) => state);
 
-    /* useEffect(() => {
-        console.log(bgColor.current.value);
-    }, []); */
     return (
         <div className="flex flex-col gap-5">
             <div className="flex items-center gap-2">
